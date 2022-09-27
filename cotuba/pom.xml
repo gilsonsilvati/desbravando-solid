@@ -9,6 +9,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
+
+		<commons-cli.version>1.5.0</commons-cli.version>
+		<commonmark.version>0.17.0</commonmark.version>
+		<epublib-core.version>3.1</epublib-core.version>
+		<kxml2.version>2.5.1-SNAPSHOT</kxml2.version>
+		<html2pdf.version>4.0.3</html2pdf.version>
 	</properties>
 
 	<dependencies>
@@ -16,19 +22,19 @@
 		<dependency>
 			<groupId>commons-cli</groupId>
 			<artifactId>commons-cli</artifactId>
-			<version>1.4</version>
+			<version>${commons-cli.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.atlassian.commonmark</groupId>
 			<artifactId>commonmark</artifactId>
-			<version>0.11.0</version>
+			<version>${commonmark.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>nl.siegmann.epublib</groupId>
 			<artifactId>epublib-core</artifactId>
-			<version>3.1</version>
+			<version>${epublib-core.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>net.sf.kxml</groupId>
@@ -44,7 +50,7 @@
 		<dependency>
 			<groupId>net.sf.kxml</groupId>
 			<artifactId>kxml2</artifactId>
-			<version>2.5.1-SNAPSHOT</version>
+			<version>${kxml2.version}</version>
 			<classifier>jar-with-dependencies</classifier>
 			<exclusions>
 				<exclusion>
@@ -57,7 +63,7 @@
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>html2pdf</artifactId>
-			<version>2.0.0</version>
+			<version>${html2pdf.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>com.itextpdf</groupId>
