@@ -12,11 +12,15 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class RenderizadorMDParaHTML {
 
-    public void renderiza(Path diretorioDosMD) {
+    public List<Capitulo> renderiza(Path diretorioDosMD) {
+
+        List<Capitulo> capitulos = new ArrayList<>();
 
         PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:**/*.md");
 
@@ -26,6 +30,8 @@ public class RenderizadorMDParaHTML {
                     .filter(matcher::matches)
                     .sorted()
                     .forEach(arquivoMD -> {
+
+                        Capitulo capitulo = new Capitulo();
 
                         Parser parser = Parser.builder().build();
                         Node document = null;
@@ -40,7 +46,7 @@ public class RenderizadorMDParaHTML {
                                     if (heading.getLevel() == 1) {
                                         // capítulo
                                         String tituloDoCapitulo = ((Text) heading.getFirstChild()).getLiteral();
-                                        // TODO: usar título do capítulo
+                                        capitulo.setTitulo(tituloDoCapitulo);
                                     } else if (heading.getLevel() == 2) {
                                         // seção
                                     } else if (heading.getLevel() == 3) {
@@ -58,7 +64,9 @@ public class RenderizadorMDParaHTML {
                             HtmlRenderer renderer = HtmlRenderer.builder().build();
                             String html = renderer.render(document);
 
-                            // TODO: PDF ou EPUB aqui?
+                            capitulo.setConteudoHTML(html);
+
+                            capitulos.add(capitulo);
 
                         } catch (Exception ex) {
                             throw new IllegalStateException("Erro ao renderizar para HTML o arquivo " + arquivoMD, ex);
@@ -69,6 +77,7 @@ public class RenderizadorMDParaHTML {
             throw new IllegalStateException("Erro tentando encontrar arquivos .md em " + diretorioDosMD.toAbsolutePath(), ex);
         }
 
+        return capitulos;
     }
 
 }
